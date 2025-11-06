@@ -1,0 +1,5 @@
+fastapi[all]
+gspread
+oauth2client
+regex
+python-dotenv>=1.0.0
