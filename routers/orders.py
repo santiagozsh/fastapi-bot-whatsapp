@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request, Response
+from starlette import responses
 from core.config import env_settings
 import services.google_sheets as sheets
 
@@ -20,3 +21,14 @@ def test ():
     except Exception as error:
         print(f"ERROR:    Error al escribir en Google Sheets: { error }")
         raise HTTPException(status_code=500, detail=f"Error al escribir en Sheets: { error }")
+
+@router.get("/webhook")
+async def verification_whatsapp(request: Request):
+
+    # Datos enviados por meta desde la URL
+    verify_token= request.query_params.get("hub.verify_token")
+    challenge = request.query_params.get("hub.challenge")
+    
+    if verify_token == env_settings.WHATSAPP_VERIFY_TOKEN:
+        print("INFO: Webhook verificado!")
+        return Response(content=challenge)
