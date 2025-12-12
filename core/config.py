@@ -13,5 +13,5 @@ class EnviormentSettings(BaseSettings):
 
 env_settings = EnviormentSettings() # type: ignore 
 
-print(f"INFO: config load is: { env_settings.WHATSAPP_VERIFY_TOKEN } { env_settings.GOOGLE_SHEET_NAME } { env_settings.WHATSAPP_API_TOKEN }")
+# print(f"INFO: config load is: { env_settings.WHATSAPP_VERIFY_TOKEN } { env_settings.GOOGLE_SHEET_NAME } { env_settings.WHATSAPP_API_TOKEN }")
 

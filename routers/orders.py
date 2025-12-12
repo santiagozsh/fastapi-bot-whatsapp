@@ -1,7 +1,10 @@
+from inspect import indentsize
 from fastapi import APIRouter, HTTPException, Request, Response
 from starlette import responses
 from core.config import env_settings
 import services.google_sheets as sheets
+import json
+import services.whatsapp_clean_json as cleanjson
 
 router = APIRouter()
 
@@ -32,3 +35,22 @@ async def verification_whatsapp(request: Request):
     if verify_token == env_settings.WHATSAPP_VERIFY_TOKEN:
         print("INFO: Webhook verificado!")
         return Response(content=challenge)
+    return { Response( status_code=200 )}
+
+@router.post("/webhook")
+async def seeing_data(request:Request):
+    data_body = await request.json()
+
+    # print(json.dumps(data_body, indent=2))
+
+    data = cleanjson.extract_message_data(data_body)
+
+    if data:
+        print("DATOS:")
+        print(f"Numero de telefono: {data['phone']}")
+        print(f"Tipo: {data['type']}")
+        print(f"Texto: {data['text']}")
+        print(f"image+id: {data['image_id']}")
+    else: 
+        print("Evento ignorado")
+    return { Response( status_code=200 )}

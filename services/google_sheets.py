@@ -11,7 +11,7 @@ try:
 
     sales = spreadsheet.worksheet("Ventas");
     # transaction = spreadsheet.worksheet("Ingresos transacciones");
-    print(f"INFO: google sheet connection: {env_settings.GOOGLE_SHEET_NAME} success!");
+    # print(f"INFO: google sheet connection: {env_settings.GOOGLE_SHEET_NAME} success!");
 
 except Exception as error:
     print("ERROR: Google connection is not working. Check service_account.json or permissions!");
